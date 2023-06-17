@@ -110,51 +110,10 @@ class Settings {
 	 */
 	public function render_settings_section() {
 		?>
-		<button id="create-gallery-btn" type="button" class="button"><?php __( 'Create New Gallery', 'browserstack-gallery' ); ?></button>
+		<button id="create-gallery-btn" type="button" class="button"><?php esc_html_e( 'Create New Gallery', 'browserstack-gallery' ); ?></button>
 		<input id="setting-field" name="<?php echo esc_attr( self::$menu_slug ); ?>" value="<?php echo esc_attr( get_option( self::$menu_slug ) ); ?>" />
+		<div id="gallery-setting"></div>
 		<?php
-
-		$gallery_settings = self::get_settings();
-
-		if ( empty( $gallery_settings ) ) {
-			return;
-		}
-
-		foreach ( $gallery_settings as $gallery_id => $images ) {
-			/* Translators: %s: Gallery ID */
-			$title = sprintf( __( 'Gallery (ID:%s)', 'browserstack-gallery' ), $gallery_id );
-			?>
-			<div class="gallery-container">
-				<div class="gallery-container__header">
-					<h3><?php echo esc_html( $title ); ?></h3>
-					<div class="gallery-container__header--cta">
-						<button type="button" class="button delete-gallery-btn" data-gallery-id="<?php echo esc_attr( $gallery_id ); ?>">
-							<?php esc_html_e( 'Delete Gallery', 'browserstack-gallery' ); ?>
-						</button>
-						<button type="button" class="button add-gallery-image-btn" data-gallery-id="<?php echo esc_attr( $gallery_id ); ?>">
-							<?php esc_html_e( 'Add Image', 'browserstack-gallery' ); ?>
-						</button>
-					</div>
-				</div>
-				<div class="gallery-container__content">
-					<div class="gallery-container__images">
-						<?php
-						foreach ( $images as $image ) {
-							?>
-							<div class="gallery-container__image">
-								<img src="<?php echo esc_url( $image['url'] ); ?>" alt="<?php echo esc_attr( $image['alt'] ); ?>" />
-								<button type="button" class="delete-img-btn">
-									<span class="dashicons dashicons-trash"></span>
-								</button>
-							</div>
-							<?php
-						}
-						?>
-					</div>
-				</div>
-			</div>
-			<?php
-		}
 	}
 
 	/**

@@ -1,33 +1,34 @@
 /**
- * Admin scripts
+ * External dependencies
  */
+import { createRoot, useState, useEffect } from '@wordpress/element';
 
-import domReady from '@wordpress/dom-ready';
+/**
+ * Internal dependencies
+ */
+import GalleryContainer from './components/GalleryContainer';
 
-import '../css/admin.scss';
+const settingField = document.querySelector( '#setting-field' );
+const newGalleryBtn = document.querySelector( '#create-gallery-btn' );
 
-domReady( () => {
-	const newGalleryBtn = document.querySelector( '#create-gallery-btn' );
-	const settingField = document.querySelector( '#setting-field' );
-	const galleryContainers = document.querySelectorAll( '.gallery-container' );
+/**
+ * Generate a unique ID for each gallery
+ *
+ * @return {string} Unique ID for each gallery
+ */
+const generateGalleryId = () => {
+	const uint32 = window.crypto.getRandomValues( new Uint32Array( 1 ) )[ 0 ];
+	return uint32.toString( 16 );
+};
 
-	/**
-	 * Generate a unique ID for each gallery
-	 *
-	 * @return {string} Unique ID for each gallery
-	 */
-	const generateGalleryId = () => {
-		const uint32 = window.crypto.getRandomValues(
-			new Uint32Array( 1 )
-		)[ 0 ];
-		return uint32.toString( 16 );
-	};
+/**
+ * Root component
+ *
+ * @return { JSX.Element} - Root component.
+ */
+const Root = () => {
+	const [ setting, setSetting ] = useState( {} );
 
-	/**
-	 * Handle new gallery button click
-	 *
-	 * @param {Event} e Event
-	 */
 	const onNewGalleryBtnClick = ( e ) => {
 		e.stopPropagation();
 
@@ -40,34 +41,46 @@ domReady( () => {
 		} );
 
 		mediaFrame.on( 'select', function () {
-			// generate a unique ID for each gallery
-
+			const galleryId = generateGalleryId();
 			const attachment = mediaFrame.state().get( 'selection' ).toJSON();
 			const images = attachment.map( ( item ) => ( {
 				id: item.id,
 				url: item.url,
 				alt: item.alt,
 			} ) );
-			const currentSetting = JSON.parse( settingField.value || '{}' );
-			const galleryId = generateGalleryId();
 
-			currentSetting[ galleryId ] = images;
-			settingField.value = JSON.stringify( currentSetting );
+			setSetting( ( prev ) => ( { ...prev, [ galleryId ]: images } ) );
 		} );
 
 		mediaFrame.open();
 	};
 
-	const onGalleryContainerClick = ( e ) => {
-		const { target } = e;
+	useEffect( () => {
+		const currentSetting = JSON.parse( settingField.value || '{}' );
+		setSetting( currentSetting );
 
-		target
-			?.closest( '.gallery-container' )
-			?.classList.toggle( 'is-active' );
-	};
+		newGalleryBtn.addEventListener( 'click', onNewGalleryBtnClick );
 
-	galleryContainers.forEach( ( galleryContainer ) => {
-		galleryContainer.addEventListener( 'click', onGalleryContainerClick );
-	} );
-	newGalleryBtn.addEventListener( 'click', onNewGalleryBtnClick );
-} );
+		return () => {
+			newGalleryBtn.removeEventListener( 'click', onNewGalleryBtnClick );
+		};
+	}, [] );
+
+	useEffect( () => {
+		settingField.value = JSON.stringify( setting );
+	}, [ setting ] );
+
+	return (
+		<>
+			{ Object.keys( setting ).map( ( key ) => (
+				<GalleryContainer
+					key={ key }
+					id={ key }
+					images={ setting[ key ] }
+				/>
+			) ) }
+		</>
+	);
+};
+
+createRoot( document.getElementById( 'gallery-setting' ) ).render( <Root /> );

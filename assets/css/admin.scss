@@ -97,7 +97,7 @@
 		}
 	}
 
-	&.is-active {
+	&.is-expanded {
 		#{$root}__header {
 			border-bottom: none;
 			border-radius: 5px 5px 0 0;

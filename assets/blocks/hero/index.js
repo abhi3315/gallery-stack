@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * External dependencies
  */
 import { registerBlockType } from '@wordpress/blocks';
 

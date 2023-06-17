@@ -32,6 +32,7 @@ class Assets {
 	 */
 	public function init() {
 		add_action( 'enqueue_block_assets', array( $this, 'enqueue_frontend_assets' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
 	}
 
 	/**
@@ -50,6 +51,33 @@ class Assets {
 		wp_enqueue_script(
 			'browserstack-gallery-frontend',
 			BROWSERSTACK_GALLERY_URL . 'build/assets/main.js',
+			[],
+			BROWSERSTACK_GALLERY_METADATA['Version'],
+			true
+		);
+	}
+
+	/**
+	 * Enqueue admin assets.
+	 */
+	public function enqueue_admin_assets() {
+		// Enqueue admin assets only on custom settings page.
+		if ( 'toplevel_page_browserstack-gallery' !== get_current_screen()->id ) {
+			return;
+		}
+
+		// Enqueue admin styles.
+		wp_enqueue_style(
+			'browserstack-gallery-admin',
+			BROWSERSTACK_GALLERY_URL . 'build/assets/admin.css',
+			array(),
+			BROWSERSTACK_GALLERY_METADATA['Version']
+		);
+
+		// Enqueue admin scripts.
+		wp_enqueue_script(
+			'browserstack-gallery-admin',
+			BROWSERSTACK_GALLERY_URL . 'build/assets/admin.js',
 			[],
 			BROWSERSTACK_GALLERY_METADATA['Version'],
 			true

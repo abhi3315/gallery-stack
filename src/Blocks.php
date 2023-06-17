@@ -32,6 +32,7 @@ class Blocks {
 	 */
 	public function init() {
 		add_action( 'init', array( $this, 'register_blocks' ) );
+		add_action( 'init', array( $this, 'register_block_styles' ) );
 	}
 
 	/**
@@ -40,6 +41,20 @@ class Blocks {
 	public function register_blocks() {
 		register_block_type(
 			BROWSERSTACK_GALLERY_PATH . '/build/blocks/hero/'
+		);
+	}
+
+	/**
+	 * Register custom block styles.
+	 */
+	public function register_block_styles() {
+		register_block_style(
+			'core/separator',
+			array(
+				'name'         => 'browserstack-separator',
+				'label'        => __( 'Browserstack Separator', 'browserstack-gallery' ),
+				'style_handle' => 'browserstack-separator',
+			)
 		);
 	}
 }

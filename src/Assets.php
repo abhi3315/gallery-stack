@@ -7,6 +7,8 @@
 
 namespace Browserstack_Gallery;
 
+use Browserstack_Gallery\Settings;
+
 /**
  * Assets class.
  */
@@ -48,10 +50,11 @@ class Assets {
 		);
 
 		// Enqueue frontend scripts.
+		$frontend_dependencies = include BROWSERSTACK_GALLERY_PATH . 'build/assets/main.asset.php';
 		wp_enqueue_script(
 			'browserstack-gallery-frontend',
 			BROWSERSTACK_GALLERY_URL . 'build/assets/main.js',
-			[],
+			$frontend_dependencies['dependencies'],
 			BROWSERSTACK_GALLERY_METADATA['Version'],
 			true
 		);
@@ -62,7 +65,8 @@ class Assets {
 	 */
 	public function enqueue_admin_assets() {
 		// Enqueue admin assets only on custom settings page.
-		if ( 'toplevel_page_browserstack-gallery' !== get_current_screen()->id ) {
+		$setting_top_level_page = 'toplevel_page_' . Settings::$menu_slug;
+		if ( get_current_screen()->id !== $setting_top_level_page ) {
 			return;
 		}
 
@@ -75,10 +79,11 @@ class Assets {
 		);
 
 		// Enqueue admin scripts.
+		$admin_dependencies = include BROWSERSTACK_GALLERY_PATH . 'build/assets/admin.asset.php';
 		wp_enqueue_script(
 			'browserstack-gallery-admin',
 			BROWSERSTACK_GALLERY_URL . 'build/assets/admin.js',
-			[],
+			$admin_dependencies['dependencies'],
 			BROWSERSTACK_GALLERY_METADATA['Version'],
 			true
 		);

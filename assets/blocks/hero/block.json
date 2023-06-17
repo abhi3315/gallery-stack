@@ -11,7 +11,8 @@
 		"align": [ "wide", "full" ],
 		"spacing": {
 			"padding": true,
-			"margin": true
+			"margin": true,
+			"blockGap": true
 		}
 	},
 	"attributes": {

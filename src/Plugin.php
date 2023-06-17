@@ -8,6 +8,7 @@
 namespace Browserstack_Gallery;
 
 use Browserstack_Gallery\Blocks;
+use Browserstack_Gallery\Assets;
 
 /**
  * Main plugin class.
@@ -36,5 +37,9 @@ class Plugin {
 		// Register blocks.
 		$blocks = Blocks::get_instance();
 		$blocks->init();
+
+		// Enqueue assets.
+		$assets = Assets::get_instance();
+		$assets->init();
 	}
 }

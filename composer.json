@@ -1,0 +1,42 @@
+{
+	"name": "abhi3315/browserstack-gallery",
+	"description": "A assignment plugin for Browserstack.",
+	"type": "wordpress-plugin",
+	"require": {
+		"php": ">=7.4"
+	},
+	"require-dev": {
+		"wp-coding-standards/wpcs": "^2.3",
+		"phpcompatibility/phpcompatibility-wp": "^2.1",
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+		"squizlabs/php_codesniffer": "^3.7"
+	},
+	"license": "GPL v3 or later",
+	"autoload": {
+		"psr-4": {
+			"Browserstack_Gallery\\": "src/"
+		}
+	},
+	"authors": [
+		{
+			"name": "Abhishek Sharma",
+			"email": "abhishek3.dev@gmail.com"
+		}
+	],
+	"config": {
+		"allow-plugins": {
+			"composer/*": true,
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
+	"scripts": {
+		"generate-autoloader": "@composer dump-autoload -o",
+		"format:php": "phpcbf --standard=./phpcs.xml --basepath=. . -v",
+		"lint:php": "phpcs --standard=./phpcs.xml --basepath=. . -v",
+		"packages-install": "@composer install --ignore-platform-reqs --no-interaction",
+		"packages-update": [
+			"@composer clear-cache",
+			"@composer update --prefer-stable --no-interaction"
+		]
+	}
+}

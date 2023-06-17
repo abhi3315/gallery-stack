@@ -8,7 +8,11 @@
 	"icon": "star-filled",
 	"supports": {
 		"html": false,
-		"align": [ "wide", "full" ]
+		"align": [ "wide", "full" ],
+		"spacing": {
+			"padding": true,
+			"margin": true
+		}
 	},
 	"attributes": {
 		"backgroundImages": {

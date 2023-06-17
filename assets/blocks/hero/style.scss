@@ -1,0 +1,41 @@
+.browserstack-hero {
+	position: relative;
+
+	&__slides {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		overflow-x: scroll;
+		scroll-behavior: smooth;
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: -1;
+
+		// hide scrollbar
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
+
+		&::-webkit-scrollbar {
+			display: none; /* Chrome, Safari, Opera*/
+		}
+	}
+
+	&__slide {
+		width: 100%;
+		height: 100%;
+		flex: 0 0 auto;
+		overflow: hidden;
+
+		img {
+			object-fit: contain;
+			width: 100%;
+			filter: brightness(0.5);
+		}
+	}
+
+	&__slide-content {
+		height: 100%;
+		width: 100%;
+	}
+}

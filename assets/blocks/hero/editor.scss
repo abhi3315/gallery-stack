@@ -1,4 +1,4 @@
-.browserstack-hero {
+.browserstack-hero-controls {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	grid-gap: 10px;
@@ -20,7 +20,7 @@
 		}
 
 		&:hover {
-			& .browserstack-hero__remove-btn {
+			& .browserstack-hero-controls__remove-btn {
 				visibility: visible;
 			}
 		}

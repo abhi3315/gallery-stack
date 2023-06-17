@@ -20,7 +20,10 @@ const ALLOWED_BLOCKS = [
 	'core/heading',
 	'core/paragraph',
 	'core/spacer',
+	'core/list',
+	'core/quote',
 	'core/separator',
+	'core/buttons',
 ];
 
 const Edit = ( { attributes, setAttributes } ) => {
@@ -47,6 +50,13 @@ const Edit = ( { attributes, setAttributes } ) => {
 			),
 		} );
 	};
+
+	const bgImageStyles = {};
+
+	if ( backgroundImages.length ) {
+		bgImageStyles.backgroundImage = `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${ backgroundImages[ 0 ].url })`;
+		bgImageStyles.minHeight = '400px';
+	}
 
 	return (
 		<>
@@ -76,10 +86,10 @@ const Edit = ( { attributes, setAttributes } ) => {
 						render={ ( { open } ) => (
 							<>
 								{ !! backgroundImages.length && (
-									<div className="browserstack-hero">
+									<div className="browserstack-hero-controls">
 										{ backgroundImages.map( ( image ) => (
 											<div
-												className="browserstack-hero__image"
+												className="browserstack-hero-controls__image"
 												key={ image.id }
 											>
 												<img
@@ -87,7 +97,7 @@ const Edit = ( { attributes, setAttributes } ) => {
 													alt={ image.alt }
 												/>
 												<button
-													className="browserstack-hero__remove-btn"
+													className="browserstack-hero-controls__remove-btn"
 													onClick={ () =>
 														onRemoveImage(
 															image.id
@@ -116,7 +126,13 @@ const Edit = ( { attributes, setAttributes } ) => {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<div { ...useBlockProps() }>
+			<div
+				{ ...useBlockProps( {
+					className: 'browserstack-hero',
+					style: bgImageStyles,
+					'data-slide-duration': slideDuration,
+				} ) }
+			>
 				<InnerBlocks
 					allowedBlocks={ ALLOWED_BLOCKS }
 					template={ [

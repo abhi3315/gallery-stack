@@ -9,6 +9,7 @@ import '../css/admin.scss';
 domReady( () => {
 	const newGalleryBtn = document.querySelector( '#create-gallery-btn' );
 	const settingField = document.querySelector( '#setting-field' );
+	const galleryContainers = document.querySelectorAll( '.gallery-container' );
 
 	/**
 	 * Generate a unique ID for each gallery
@@ -28,7 +29,7 @@ domReady( () => {
 	 * @param {Event} e Event
 	 */
 	const onNewGalleryBtnClick = ( e ) => {
-		e.preventDefault();
+		e.stopPropagation();
 
 		const mediaFrame = wp.media( {
 			title: 'Select images for your gallery',
@@ -42,16 +43,31 @@ domReady( () => {
 			// generate a unique ID for each gallery
 
 			const attachment = mediaFrame.state().get( 'selection' ).toJSON();
-			const attachmentIds = attachment.map( ( item ) => item.id );
+			const images = attachment.map( ( item ) => ( {
+				id: item.id,
+				url: item.url,
+				alt: item.alt,
+			} ) );
 			const currentSetting = JSON.parse( settingField.value || '{}' );
 			const galleryId = generateGalleryId();
 
-			currentSetting[ galleryId ] = attachmentIds;
+			currentSetting[ galleryId ] = images;
 			settingField.value = JSON.stringify( currentSetting );
 		} );
 
 		mediaFrame.open();
 	};
 
+	const onGalleryContainerClick = ( e ) => {
+		const { target } = e;
+
+		target
+			?.closest( '.gallery-container' )
+			?.classList.toggle( 'is-active' );
+	};
+
+	galleryContainers.forEach( ( galleryContainer ) => {
+		galleryContainer.addEventListener( 'click', onGalleryContainerClick );
+	} );
 	newGalleryBtn.addEventListener( 'click', onNewGalleryBtnClick );
 } );

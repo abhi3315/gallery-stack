@@ -65,12 +65,11 @@ class Shortcodes {
 
 		$images_html = '';
 
-		foreach ( $images as $id ) {
-			$image        = wp_get_attachment_image_src( $id, 'full' );
+		foreach ( $images as $image ) {
 			$images_html .= sprintf(
 				'<div class="browserstack-gallery__image alignfull"><img src="%s" alt="%s" /></div>',
-				$image[0],
-				get_post_meta( $id, '_wp_attachment_image_alt', true )
+				$image['url'],
+				$image['alt']
 			);
 		}
 

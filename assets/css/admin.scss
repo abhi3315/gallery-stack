@@ -1,0 +1,118 @@
+// Admin styles
+
+.gallery-container {
+	margin-top: 20px;
+	$root: &;
+
+	&__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 20px;
+		border: 1px solid #cccccc;
+		background-color: #ffffff;
+		border-radius: 5px;
+		cursor: pointer;
+
+		@media (max-width: 480px) {
+			padding: 10px;
+		}
+
+		&--cta {
+			display: flex;
+			align-items: center;
+			position: relative;
+			padding-right: 80px;
+
+			@media (max-width: 480px) {
+				padding-right: 20px;
+			}
+
+			button {
+				margin-left: 10px !important;
+			}
+
+			&::after {
+				content: "+";
+				font-family: "dashicons";
+				font-size: 30px;
+				color: #7d7d7d;
+				transition: transform 0.3s ease-in-out;
+				transform-origin: center;
+				margin-left: 20px;
+				position: absolute;
+				height: 100%;
+				right: 0;
+				top: 0;
+			}
+		}
+	}
+
+	&__content {
+		height: 0;
+		transition: height 0.3s ease-in-out;
+		overflow: hidden;
+	}
+
+	&__images {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		grid-auto-rows: 1fr;
+		grid-gap: 20px;
+		width: 100%;
+
+		@media (max-width: 768px) {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		@media (max-width: 480px) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	&__image {
+		position: relative;
+
+		img {
+			width: 100%;
+			height: 100%;
+		}
+
+		.delete-img-btn {
+			color: #dc3232;
+			position: absolute;
+			top: -10px;
+			right: -10px;
+			border-radius: 50%;
+			border: none;
+			outline: none;
+			height: 30px;
+			width: 30px;
+			cursor: pointer;
+
+			&:hover {
+				background-color: #dc3232;
+				color: #ffffff;
+			}
+		}
+	}
+
+	&.is-active {
+		#{$root}__header {
+			border-bottom: none;
+			border-radius: 5px 5px 0 0;
+
+			&--cta::after {
+				transform: rotate(45deg);
+			}
+		}
+
+		#{$root}__content {
+			background: #ffffff;
+			height: auto;
+			padding: 20px;
+			border: 1px solid #cccccc;
+			border-radius: 0 0 5px 5px;
+		}
+	}
+}

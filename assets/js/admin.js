@@ -1,15 +1,16 @@
 /**
  * External dependencies
  */
+import { __ } from '@wordpress/i18n';
 import { createRoot, useState, useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
 import GalleryContainer from './components/GalleryContainer';
+import '../css/admin.scss';
 
 const settingField = document.querySelector( '#setting-field' );
-const newGalleryBtn = document.querySelector( '#create-gallery-btn' );
 
 /**
  * Generate a unique ID for each gallery
@@ -22,6 +23,46 @@ const generateGalleryId = () => {
 };
 
 /**
+ * Open media frame to select images
+ *
+ * @param {Array}    selectedImages - Array of selected image IDs.
+ * @param {Function} callback       - Callback function to return selected images.
+ */
+const openMediaFrame = ( selectedImages = [], callback ) => {
+	const mediaFrame = wp.media( {
+		title: 'Select images for your gallery',
+		button: {
+			text: 'Create gallery',
+		},
+		multiple: true,
+	} );
+
+	if ( selectedImages.length ) {
+		mediaFrame.on( 'open', () => {
+			const selection = mediaFrame.state().get( 'selection' );
+			selectedImages.forEach( ( attachmentId ) => {
+				const attachment = wp.media.attachment( attachmentId );
+				attachment.fetch();
+				selection.add( attachment );
+			} );
+		} );
+	}
+
+	mediaFrame.on( 'select', () => {
+		const attachment = mediaFrame.state().get( 'selection' ).toJSON();
+		const images = attachment.map( ( item ) => ( {
+			id: item.id,
+			url: item.url,
+			alt: item.alt,
+		} ) );
+
+		callback( images );
+	} );
+
+	mediaFrame.open();
+};
+
+/**
  * Root component
  *
  * @return { JSX.Element} - Root component.
@@ -29,54 +70,97 @@ const generateGalleryId = () => {
 const Root = () => {
 	const [ setting, setSetting ] = useState( {} );
 
-	const onNewGalleryBtnClick = ( e ) => {
-		e.stopPropagation();
-
-		const mediaFrame = wp.media( {
-			title: 'Select images for your gallery',
-			button: {
-				text: 'Create gallery',
-			},
-			multiple: true,
-		} );
-
-		mediaFrame.on( 'select', function () {
+	/**
+	 * Add new gallery
+	 */
+	const onAddGallery = () => {
+		openMediaFrame( [], ( images ) => {
 			const galleryId = generateGalleryId();
-			const attachment = mediaFrame.state().get( 'selection' ).toJSON();
-			const images = attachment.map( ( item ) => ( {
-				id: item.id,
-				url: item.url,
-				alt: item.alt,
-			} ) );
 
-			setSetting( ( prev ) => ( { ...prev, [ galleryId ]: images } ) );
+			setSetting( ( prev ) => {
+				const newSetting = { ...prev, [ galleryId ]: images };
+				return newSetting;
+			} );
 		} );
-
-		mediaFrame.open();
 	};
 
+	/**
+	 * Add new image to gallery
+	 *
+	 * @param {string} galleryId - Gallery ID.
+	 */
+	const onAddImage = ( galleryId ) => {
+		const selectedImages = setting[ galleryId ].map(
+			( image ) => image.id
+		);
+
+		openMediaFrame( selectedImages, ( images ) => {
+			setSetting( ( prev ) => {
+				const newSetting = { ...prev };
+				newSetting[ galleryId ] = images;
+				return newSetting;
+			} );
+		} );
+	};
+
+	/**
+	 * Delete gallery
+	 *
+	 * @param {string} galleryId - Gallery ID.
+	 */
+	const onDeleteGallery = ( galleryId ) => {
+		setSetting( ( prev ) => {
+			const newSetting = { ...prev };
+			delete newSetting[ galleryId ];
+			return newSetting;
+		} );
+	};
+
+	/**
+	 * Delete image from gallery
+	 *
+	 * @param {string} galleryId - Gallery ID.
+	 * @param {string} imageId   - Image ID.
+	 *
+	 */
+	const onDeleteImage = ( galleryId, imageId ) => {
+		setSetting( ( prev ) => {
+			const images = prev[ galleryId ].filter(
+				( image ) => image.id !== imageId
+			);
+
+			return { ...prev, [ galleryId ]: images };
+		} );
+	};
+
+	/**
+	 * Set setting value on mount
+	 */
 	useEffect( () => {
 		const currentSetting = JSON.parse( settingField.value || '{}' );
 		setSetting( currentSetting );
-
-		newGalleryBtn.addEventListener( 'click', onNewGalleryBtnClick );
-
-		return () => {
-			newGalleryBtn.removeEventListener( 'click', onNewGalleryBtnClick );
-		};
 	}, [] );
 
+	/**
+	 * Update setting value on change
+	 */
 	useEffect( () => {
 		settingField.value = JSON.stringify( setting );
 	}, [ setting ] );
 
 	return (
 		<>
+			<button type="button" className="button" onClick={ onAddGallery }>
+				{ __( 'Add Gallery', 'browserstack-gallery' ) }
+			</button>
 			{ Object.keys( setting ).map( ( key ) => (
 				<GalleryContainer
 					key={ key }
 					id={ key }
 					images={ setting[ key ] }
+					onAddImage={ onAddImage }
+					onDeleteImage={ onDeleteImage }
+					onDeleteGallery={ onDeleteGallery }
 				/>
 			) ) }
 		</>

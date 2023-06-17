@@ -38,5 +38,8 @@ class Blocks {
 	 * Register blocks.
 	 */
 	public function register_blocks() {
+		register_block_type(
+			BROWSERSTACK_GALLERY_PATH . '/build/blocks/hero/'
+		);
 	}
 }

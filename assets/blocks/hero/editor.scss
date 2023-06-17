@@ -1,0 +1,49 @@
+.browserstack-hero {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 10px;
+	margin-bottom: 2rem;
+
+	&__image {
+		height: 120px;
+		background: #f5f5f5;
+		border-radius: 5px;
+		border: 1px solid #e5e5e5;
+		box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+		overflow: hidden;
+		position: relative;
+
+		img {
+			height: 100%;
+			object-fit: cover;
+			width: 100%;
+		}
+
+		&:hover {
+			& .browserstack-hero__remove-btn {
+				visibility: visible;
+			}
+		}
+	}
+
+	&__remove-btn {
+		position: absolute;
+		top: 0;
+		right: 0;
+		border: 1px solid #e5e5e5;
+		border-radius: 50%;
+		box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+		cursor: pointer;
+		transition: all 0.2s ease-in-out;
+		height: 25px;
+		width: 25px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		visibility: hidden;
+
+		&:hover {
+			background: #f5f5f5;
+		}
+	}
+}

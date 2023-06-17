@@ -11,6 +11,9 @@ domReady( () => {
 
 	let currentSlide = 0;
 
+	/**
+	 * Next slide
+	 */
 	const nextSlide = () => {
 		currentSlide++;
 		if ( currentSlide >= slides.length ) {
@@ -28,6 +31,18 @@ domReady( () => {
 			} );
 		}
 	};
+
+	/**
+	 * Reset slides
+	 */
+	const resetSlides = () => {
+		slideContainer.scrollTo( {
+			left: 0,
+			behavior: 'smooth',
+		} );
+	};
+
+	window.addEventListener( 'resize', resetSlides );
 
 	setInterval( nextSlide, slideDuration * 1000 );
 } );

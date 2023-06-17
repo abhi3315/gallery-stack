@@ -7,6 +7,8 @@
 
 namespace Browserstack_Gallery;
 
+use Exception;
+
 /**
  * Class to register custom setting page.
  */
@@ -68,6 +70,7 @@ class Settings {
 			<form action="options.php" method="post">
 				<?php
 				settings_fields( self::$menu_slug );
+				settings_errors();
 				do_settings_sections( self::$menu_slug );
 				submit_button();
 				?>
@@ -97,21 +100,73 @@ class Settings {
 	/**
 	 * Sanitize settings.
 	 *
-	 * @param array $settings Settings.
+	 * @param string $settings Settings.
 	 *
 	 * @return array
 	 */
 	public function sanitize_settings( $settings ) {
-		return $settings;
+		try {
+			$settings = json_decode( $settings, true );
+
+			if ( empty( $settings ) ) {
+				return '';
+			}
+
+			$settings = $this->sanitize_array( $settings );
+			$settings = wp_json_encode( $settings );
+
+			if ( empty( $settings ) ) {
+				return '';
+			}
+
+			return $settings;
+		} catch ( Exception $e ) {
+			add_settings_error(
+				self::$menu_slug,
+				'invalid-settings',
+				$e->getMessage()
+			);
+
+			return get_option( self::$menu_slug );
+		}
+	}
+
+	/**
+	 * Sanitizes array.
+	 *
+	 * @param array $arr Array to sanitize.
+	 *
+	 * @return array Sanitized array.
+	 */
+	private function sanitize_array( $arr ) {
+		$sanitized_arr = [];
+
+		if ( ! is_array( $arr ) ) {
+			return $sanitized_arr;
+		}
+
+		foreach ( $arr as $key => $value ) {
+			if ( is_array( $value ) ) {
+				$sanitized_arr[ sanitize_text_field( $key ) ] = $this->sanitize_array( $value );
+			} elseif ( ! empty( $value ) ) { // do not add key if value is empty.
+				$sanitized_arr[ sanitize_text_field( $key ) ] = sanitize_text_field( $value );
+			}
+		}
+
+		return $sanitized_arr;
 	}
 
 	/**
 	 * Render settings section.
 	 */
 	public function render_settings_section() {
+		$value = get_option( self::$menu_slug, '{}' );
+
+		if ( empty( $value ) ) {
+			$value = '{}';
+		}
 		?>
-		<button id="create-gallery-btn" type="button" class="button"><?php esc_html_e( 'Create New Gallery', 'browserstack-gallery' ); ?></button>
-		<input id="setting-field" name="<?php echo esc_attr( self::$menu_slug ); ?>" value="<?php echo esc_attr( get_option( self::$menu_slug ) ); ?>" />
+		<input id="setting-field" hidden name="<?php echo esc_attr( self::$menu_slug ); ?>" value="<?php echo esc_attr( $value ); ?>" />
 		<div id="gallery-setting"></div>
 		<?php
 	}
@@ -119,16 +174,10 @@ class Settings {
 	/**
 	 * Get settings.
 	 *
-	 * @return array
+	 * @return string
 	 */
 	public static function get_settings() {
 		$settings = get_option( self::$menu_slug, [] );
-
-		if ( empty( $settings ) ) {
-			return [];
-		}
-
-		$settings = json_decode( $settings, true );
 
 		if ( empty( $settings ) ) {
 			return [];
@@ -148,7 +197,10 @@ class Settings {
 
 		$gallery_settings = self::get_settings();
 
+		$gallery_settings = json_decode( $gallery_settings, true );
+
 		if ( empty( $gallery_settings ) || empty( $gallery_settings[ $gallery_id ] ) ) {
+			die;
 			return [];
 		}
 

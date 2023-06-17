@@ -32,6 +32,16 @@
 				margin-left: 10px !important;
 			}
 
+			.button-danger {
+				color: #dc3232;
+				border-color: #dc3232;
+
+				&:hover {
+					color: darken(#dc3232, 10%);
+					border-color: darken(#dc3232, 10%);
+				}
+			}
+
 			&::after {
 				content: "+";
 				font-family: "dashicons";
@@ -72,6 +82,7 @@
 
 	&__image {
 		position: relative;
+		max-height: 250px;
 
 		img {
 			width: 100%;

@@ -153,6 +153,11 @@ const Root = () => {
 			<button type="button" className="button" onClick={ onAddGallery }>
 				{ __( 'Add Gallery', 'browserstack-gallery' ) }
 			</button>
+			{ ! Object.keys( setting ).length && (
+				<h2>
+					{ __( 'No gallery added yet.', 'browserstack-gallery' ) }
+				</h2>
+			) }
 			{ Object.keys( setting ).map( ( key ) => (
 				<GalleryContainer
 					key={ key }

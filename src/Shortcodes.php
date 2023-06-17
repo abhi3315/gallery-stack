@@ -69,7 +69,7 @@ class Shortcodes {
 			$images_html .= sprintf(
 				'<div class="browserstack-gallery__image alignfull"><img src="%s" alt="%s" /></div>',
 				$image['url'],
-				$image['alt']
+				$image['alt'] ?? ''
 			);
 		}
 

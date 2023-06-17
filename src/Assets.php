@@ -33,8 +33,8 @@ class Assets {
 	 * Initialize the class.
 	 */
 	public function init() {
-		add_action( 'enqueue_block_assets', array( $this, 'enqueue_frontend_assets' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
+		add_action( 'enqueue_block_assets', [ $this, 'enqueue_frontend_assets' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 	}
 
 	/**
@@ -45,7 +45,7 @@ class Assets {
 		wp_enqueue_style(
 			'browserstack-gallery-frontend',
 			BROWSERSTACK_GALLERY_URL . 'build/assets/main.css',
-			array(),
+			[],
 			BROWSERSTACK_GALLERY_METADATA['Version']
 		);
 
@@ -74,7 +74,7 @@ class Assets {
 		wp_enqueue_style(
 			'browserstack-gallery-admin',
 			BROWSERSTACK_GALLERY_URL . 'build/assets/admin.css',
-			array(),
+			[],
 			BROWSERSTACK_GALLERY_METADATA['Version']
 		);
 

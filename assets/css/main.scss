@@ -2,3 +2,29 @@
 	width: 100px;
 	height: 5px;
 }
+
+.browserstack-gallery {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-auto-rows: 1fr;
+	grid-gap: 20px;
+
+	@media (max-width: 768px) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@media (max-width: 480px) {
+		grid-template-columns: repeat(1, 1fr);
+	}
+
+	&__image {
+		width: 100%;
+		height: auto;
+
+		img {
+			width: 100%;
+			height: 100%;
+
+		}
+	}
+}

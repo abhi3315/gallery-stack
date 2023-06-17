@@ -31,8 +31,8 @@ class Blocks {
 	 * Initialize the class.
 	 */
 	public function init() {
-		add_action( 'init', array( $this, 'register_blocks' ) );
-		add_action( 'init', array( $this, 'register_block_styles' ) );
+		add_action( 'init', [ $this, 'register_blocks' ] );
+		add_action( 'init', [ $this, 'register_block_styles' ] );
 	}
 
 	/**
@@ -50,11 +50,11 @@ class Blocks {
 	public function register_block_styles() {
 		register_block_style(
 			'core/separator',
-			array(
+			[
 				'name'         => 'browserstack-separator',
 				'label'        => __( 'Browserstack Separator', 'browserstack-gallery' ),
 				'style_handle' => 'browserstack-separator',
-			)
+			]
 		);
 	}
 }

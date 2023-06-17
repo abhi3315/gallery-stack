@@ -10,6 +10,7 @@ namespace Browserstack_Gallery;
 use Browserstack_Gallery\Blocks;
 use Browserstack_Gallery\Assets;
 use Browserstack_Gallery\Settings;
+use Browserstack_Gallery\Shortcodes;
 
 /**
  * Main plugin class.
@@ -46,5 +47,9 @@ class Plugin {
 		// Register settings page.
 		$settings = Settings::get_instance();
 		$settings->init();
+
+		// Register shortcodes.
+		$shortcodes = Shortcodes::get_instance();
+		$shortcodes->init();
 	}
 }

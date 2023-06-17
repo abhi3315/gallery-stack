@@ -38,8 +38,8 @@ class Settings {
 	 * Initialize the class.
 	 */
 	public function init() {
-		add_action( 'admin_menu', array( $this, 'register_settings_page' ) );
-		add_action( 'admin_init', array( $this, 'register_settings' ) );
+		add_action( 'admin_menu', [ $this, 'register_settings_page' ] );
+		add_action( 'admin_init', [ $this, 'register_settings' ] );
 	}
 
 	/**
@@ -83,13 +83,13 @@ class Settings {
 		register_setting(
 			self::$menu_slug,
 			self::$menu_slug,
-			array( $this, 'sanitize_settings' )
+			[ $this, 'sanitize_settings' ]
 		);
 
 		add_settings_section(
 			self::$menu_slug . '-section',
 			__( 'Gallery Settings', 'browserstack-gallery' ),
-			array( $this, 'render_settings_section' ),
+			[ $this, 'render_settings_section' ],
 			self::$menu_slug
 		);
 	}
@@ -113,5 +113,33 @@ class Settings {
 		<button id="create-gallery-btn" type="button" class="button">Create New Gallery</button>
 		<input id="setting-field" name="<?php echo esc_attr( self::$menu_slug ); ?>" value="<?php echo esc_attr( get_option( self::$menu_slug ) ); ?>" />
 		<?php
+	}
+
+	/**
+	 * Get gallery.
+	 *
+	 * @param string $gallery_id Gallery ID.
+	 *
+	 * @return array
+	 */
+	public static function get_gallery( string $gallery_id ) {
+
+		$gallery_settings = get_option( self::$menu_slug, [] );
+
+		if ( empty( $gallery_settings ) ) {
+			return [];
+		}
+
+		$gallery_settings = json_decode( $gallery_settings, true );
+
+		if ( empty( $gallery_settings ) ) {
+			return [];
+		}
+
+		if ( empty( $gallery_settings[ $gallery_id ] ) ) {
+			return [];
+		}
+
+		return $gallery_settings[ $gallery_id ];
 	}
 }

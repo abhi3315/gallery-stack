@@ -17,86 +17,83 @@ import { useState } from '@wordpress/element';
  *
  * @return { JSX.Element} - Gallery Header component.
  */
-const GalleryHeader = ( {
+const GalleryHeader = ({
 	title,
 	toggleExpanded,
 	galleryId,
 	onAddImage,
 	onDeleteGallery,
-} ) => {
-	const [ copied, setCopied ] = useState( false );
+}) => {
+	const [copied, setCopied] = useState(false);
 
 	/**
 	 * Copy shortcode to clipboard
 	 *
 	 * @param {Object} e - Event object.
 	 */
-	const onCopyShortcode = ( e ) => {
+	const onCopyShortcode = (e) => {
 		e.stopPropagation();
-		const shortcode = `[browserstack_gallery gallery_id="${ galleryId }"]`;
-		navigator?.clipboard?.writeText( shortcode );
+		const shortcode = `[browserstack_gallery gallery_id="${galleryId}"]`;
+		navigator?.clipboard?.writeText(shortcode).then(() => {
+			setCopied(true);
 
-		setCopied( true );
-
-		setTimeout( () => {
-			setCopied( false );
-		}, 500 );
+			setTimeout(() => {
+				setCopied(false);
+			}, 500);
+		});
 	};
 
 	return (
 		<div
 			className="gallery-container__header"
-			onClick={ toggleExpanded }
+			onClick={toggleExpanded}
 			role="button"
 			tabIndex="0"
-			aria-label={ __(
-				'Click to expand gallery',
-				'browserstack-gallery'
-			) }
-			onKeyDown={ ( e ) => {
-				if ( e.key === 'Enter' ) {
+			aria-label={__('Click to expand gallery', 'browserstack-gallery')}
+			onKeyDown={(e) => {
+				if (e.key === 'Enter') {
 					toggleExpanded();
 				}
-			} }
+			}}
 		>
-			<h3>{ title }</h3>
+			<h3>{title}</h3>
 			<div className="gallery-container__header--cta">
 				<button
 					type="button"
-					className={ classNames( 'button copy-shortcode-btn', {
+					className={classNames('button copy-shortcode-btn', {
 						'has-copied': copied,
-					} ) }
-					aria-label={ __(
+					})}
+					aria-label={__(
 						'Copy shortcode to clipboard',
 						'browserstack-gallery'
-					) }
-					title={ __(
+					)}
+					title={__(
 						'Copy shortcode to clipboard',
 						'browserstack-gallery'
-					) }
-					onClick={ onCopyShortcode }
+					)}
+					onClick={onCopyShortcode}
 				>
 					<span className="dashicons dashicons-admin-page"></span>
 				</button>
 				<button
 					type="button"
 					className="button add-image-btn"
-					onClick={ ( e ) => {
+					onClick={(e) => {
 						e.stopPropagation();
-						onAddImage( galleryId );
-					} }
+						onAddImage(galleryId);
+					}}
 				>
-					{ __( 'Add Image', 'browserstack-gallery' ) }
+					{__('Add Image', 'browserstack-gallery')}
 				</button>
 				<button
 					type="button"
 					className="button delete-gallery-btn"
-					onClick={ ( e ) => {
+					onClick={(e) => {
 						e.stopPropagation();
-						onDeleteGallery( galleryId );
-					} }
+						onDeleteGallery(galleryId);
+					}}
 				>
-					{ __( 'Delete Gallery', 'browserstack-gallery' ) }
+					{__('Delete Gallery', 'browserstack-gallery')}
 				</button>
 			</div>
 		</div>

@@ -10,7 +10,7 @@ import { createRoot, useState, useEffect } from '@wordpress/element';
 import GalleryContainer from './components/GalleryContainer';
 import '../css/admin.scss';
 
-const settingField = document.querySelector( '#setting-field' );
+const settingField = document.querySelector('#setting-field');
 
 /**
  * Generate a unique ID for each gallery
@@ -18,8 +18,8 @@ const settingField = document.querySelector( '#setting-field' );
  * @return {string} Unique ID for each gallery
  */
 const generateGalleryId = () => {
-	const uint32 = window.crypto.getRandomValues( new Uint32Array( 1 ) )[ 0 ];
-	return uint32.toString( 16 );
+	const uint32 = window.crypto.getRandomValues(new Uint32Array(1))[0];
+	return uint32.toString(16);
 };
 
 /**
@@ -28,36 +28,36 @@ const generateGalleryId = () => {
  * @param {Array}    selectedImages - Array of selected image IDs.
  * @param {Function} callback       - Callback function to return selected images.
  */
-const openMediaFrame = ( selectedImages = [], callback ) => {
-	const mediaFrame = wp.media( {
+const openMediaFrame = (selectedImages = [], callback) => {
+	const mediaFrame = wp.media({
 		title: 'Select images for your gallery',
 		button: {
 			text: 'Create gallery',
 		},
 		multiple: true,
-	} );
+	});
 
-	if ( selectedImages.length ) {
-		mediaFrame.on( 'open', () => {
-			const selection = mediaFrame.state().get( 'selection' );
-			selectedImages.forEach( ( attachmentId ) => {
-				const attachment = wp.media.attachment( attachmentId );
+	if (selectedImages.length) {
+		mediaFrame.on('open', () => {
+			const selection = mediaFrame.state().get('selection');
+			selectedImages.forEach((attachmentId) => {
+				const attachment = wp.media.attachment(attachmentId);
 				attachment.fetch();
-				selection.add( attachment );
-			} );
-		} );
+				selection.add(attachment);
+			});
+		});
 	}
 
-	mediaFrame.on( 'select', () => {
-		const attachment = mediaFrame.state().get( 'selection' ).toJSON();
-		const images = attachment.map( ( item ) => ( {
+	mediaFrame.on('select', () => {
+		const attachment = mediaFrame.state().get('selection').toJSON();
+		const images = attachment.map((item) => ({
 			id: item.id,
 			url: item.url,
 			alt: item.alt,
-		} ) );
+		}));
 
-		callback( images );
-	} );
+		callback(images);
+	});
 
 	mediaFrame.open();
 };
@@ -68,20 +68,20 @@ const openMediaFrame = ( selectedImages = [], callback ) => {
  * @return { JSX.Element} - Root component.
  */
 const Root = () => {
-	const [ setting, setSetting ] = useState( {} );
+	const [setting, setSetting] = useState({});
 
 	/**
 	 * Add new gallery
 	 */
 	const onAddGallery = () => {
-		openMediaFrame( [], ( images ) => {
+		openMediaFrame([], (images) => {
 			const galleryId = generateGalleryId();
 
-			setSetting( ( prev ) => {
-				const newSetting = { ...prev, [ galleryId ]: images };
+			setSetting((prev) => {
+				const newSetting = { ...prev, [galleryId]: images };
 				return newSetting;
-			} );
-		} );
+			});
+		});
 	};
 
 	/**
@@ -89,18 +89,16 @@ const Root = () => {
 	 *
 	 * @param {string} galleryId - Gallery ID.
 	 */
-	const onAddImage = ( galleryId ) => {
-		const selectedImages = setting[ galleryId ].map(
-			( image ) => image.id
-		);
+	const onAddImage = (galleryId) => {
+		const selectedImages = setting[galleryId].map((image) => image.id);
 
-		openMediaFrame( selectedImages, ( images ) => {
-			setSetting( ( prev ) => {
+		openMediaFrame(selectedImages, (images) => {
+			setSetting((prev) => {
 				const newSetting = { ...prev };
-				newSetting[ galleryId ] = images;
+				newSetting[galleryId] = images;
 				return newSetting;
-			} );
-		} );
+			});
+		});
 	};
 
 	/**
@@ -108,12 +106,12 @@ const Root = () => {
 	 *
 	 * @param {string} galleryId - Gallery ID.
 	 */
-	const onDeleteGallery = ( galleryId ) => {
-		setSetting( ( prev ) => {
+	const onDeleteGallery = (galleryId) => {
+		setSetting((prev) => {
 			const newSetting = { ...prev };
-			delete newSetting[ galleryId ];
+			delete newSetting[galleryId];
 			return newSetting;
-		} );
+		});
 	};
 
 	/**
@@ -123,53 +121,55 @@ const Root = () => {
 	 * @param {string} imageId   - Image ID.
 	 *
 	 */
-	const onDeleteImage = ( galleryId, imageId ) => {
-		setSetting( ( prev ) => {
-			const images = prev[ galleryId ].filter(
-				( image ) => image.id !== imageId
+	const onDeleteImage = (galleryId, imageId) => {
+		setSetting((prev) => {
+			const images = prev[galleryId].filter(
+				(image) => image.id !== imageId
 			);
 
-			return { ...prev, [ galleryId ]: images };
-		} );
+			return { ...prev, [galleryId]: images };
+		});
 	};
 
 	/**
 	 * Set setting value on mount
 	 */
-	useEffect( () => {
-		const currentSetting = JSON.parse( settingField.value || '{}' );
-		setSetting( currentSetting );
-	}, [] );
+	useEffect(() => {
+		const currentSetting = JSON.parse(settingField.value || '{}');
+		setSetting(currentSetting);
+	}, []);
 
 	/**
 	 * Update setting value on change
 	 */
-	useEffect( () => {
-		settingField.value = JSON.stringify( setting );
-	}, [ setting ] );
+	useEffect(() => {
+		settingField.value = JSON.stringify(setting);
+	}, [setting]);
 
 	return (
 		<>
-			<button type="button" className="button" onClick={ onAddGallery }>
-				{ __( 'Add Gallery', 'browserstack-gallery' ) }
+			<button
+				type="button"
+				className="button add-gallery-btn"
+				onClick={onAddGallery}
+			>
+				{__('Add Gallery', 'browserstack-gallery')}
 			</button>
-			{ ! Object.keys( setting ).length && (
-				<h2>
-					{ __( 'No gallery added yet.', 'browserstack-gallery' ) }
-				</h2>
-			) }
-			{ Object.keys( setting ).map( ( key ) => (
+			{!Object.keys(setting).length && (
+				<h2>{__('No gallery added yet.', 'browserstack-gallery')}</h2>
+			)}
+			{Object.keys(setting).map((key) => (
 				<GalleryContainer
-					key={ key }
-					id={ key }
-					images={ setting[ key ] }
-					onAddImage={ onAddImage }
-					onDeleteImage={ onDeleteImage }
-					onDeleteGallery={ onDeleteGallery }
+					key={key}
+					id={key}
+					images={setting[key]}
+					onAddImage={onAddImage}
+					onDeleteImage={onDeleteImage}
+					onDeleteGallery={onDeleteGallery}
 				/>
-			) ) }
+			))}
 		</>
 	);
 };
 
-createRoot( document.getElementById( 'gallery-setting' ) ).render( <Root /> );
+createRoot(document.getElementById('gallery-setting')).render(<Root />);

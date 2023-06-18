@@ -8,7 +8,7 @@
 	"icon": "star-filled",
 	"supports": {
 		"html": false,
-		"align": [ "wide", "full" ],
+		"align": ["wide", "full"],
 		"spacing": {
 			"padding": true,
 			"margin": true,
@@ -37,8 +37,8 @@
 		}
 	},
 	"textdomain": "browserstack-gallery",
-	"viewScript": [ "file:./view.js", "browserstack-gallery/hero-view-script" ],
+	"viewScript": ["file:./view.js", "browserstack-gallery/hero-view-script"],
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
-	"style": [ "file:./style-index.css", "browserstack-gallery/hero-style" ]
+	"style": ["file:./style-index.css", "browserstack-gallery/hero-style"]
 }

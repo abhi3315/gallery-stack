@@ -65,7 +65,7 @@ class Settings {
 	public function render_settings_page() {
 		wp_enqueue_media();
 		?>
-		<div class="wrap">
+		<div class="wrap gallery-settings">
 			<h1><?php esc_html_e( 'Browserstack Settings', 'browserstack-gallery' ); ?></h1>
 			<form action="options.php" method="post">
 				<?php

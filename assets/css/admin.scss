@@ -9,8 +9,8 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 20px;
-		border: 1px solid #cccccc;
-		background-color: #ffffff;
+		border: 1px solid #ccc;
+		background-color: #fff;
 		border-radius: 5px;
 		cursor: pointer;
 
@@ -37,14 +37,14 @@
 				border-color: #dc3232;
 
 				&:hover {
-					color: darken(#dc3232, 10%);
-					border-color: darken(#dc3232, 10%);
+					color: #cc2828;
+					border-color: #cc2828;
 				}
 			}
 
 			&::after {
 				content: "+";
-				font-family: "dashicons";
+				font-family: dashicons, sans-serif;
 				font-size: 30px;
 				color: #7d7d7d;
 				transition: transform 0.3s ease-in-out;
@@ -103,7 +103,7 @@
 
 			&:hover {
 				background-color: #dc3232;
-				color: #ffffff;
+				color: #fff;
 			}
 		}
 	}
@@ -119,10 +119,10 @@
 		}
 
 		#{$root}__content {
-			background: #ffffff;
+			background: #fff;
 			height: auto;
 			padding: 20px;
-			border: 1px solid #cccccc;
+			border: 1px solid #ccc;
 			border-radius: 0 0 5px 5px;
 		}
 	}

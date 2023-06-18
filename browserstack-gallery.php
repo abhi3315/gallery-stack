@@ -6,17 +6,17 @@
  * Version:                 1.0.0
  * Requires at least:       4.9
  * Tested up to:            6.2
- * PHP Version:             7.4
+ * PHP Version:             7.0
  * Author:                  Abhishek Sharma
  * Author URI:              https://github.com/abhi3315/
- * License:                 GPL v3 or later
- * License URI:             https://www.gnu.org/licenses/gpl-3.0.html
+ * License:                 GPL v2 or later
+ * License URI:             https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:             browserstack-gallery
  *
  * @category WordPress_Plugin
  * @package  Browserstack_Gallery
  * @author   Abhishek Sharma <abhishek3.dev@gmail.com>
- * @license  https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @license  https://www.gnu.org/licenses/gpl-2.0.html GPL v2 or later
  * @version  GIT: 1.0.0
  * @link     https://github.com/abhi3315/browserstack-gallery/
  **/

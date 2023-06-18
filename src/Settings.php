@@ -200,7 +200,6 @@ class Settings {
 		$gallery_settings = json_decode( $gallery_settings, true );
 
 		if ( empty( $gallery_settings ) || empty( $gallery_settings[ $gallery_id ] ) ) {
-			die;
 			return [];
 		}
 

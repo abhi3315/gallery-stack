@@ -1,7 +1,9 @@
 /**
  * External dependencies
  */
+import classNames from 'classnames';
 import { __ } from '@wordpress/i18n';
+import { useState } from '@wordpress/element';
 
 /**
  * Gallery Header component
@@ -22,6 +24,25 @@ const GalleryHeader = ( {
 	onAddImage,
 	onDeleteGallery,
 } ) => {
+	const [ copied, setCopied ] = useState( false );
+
+	/**
+	 * Copy shortcode to clipboard
+	 *
+	 * @param {Object} e - Event object.
+	 */
+	const onCopyShortcode = ( e ) => {
+		e.stopPropagation();
+		const shortcode = `[browserstack_gallery gallery_id="${ galleryId }"]`;
+		navigator?.clipboard?.writeText( shortcode );
+
+		setCopied( true );
+
+		setTimeout( () => {
+			setCopied( false );
+		}, 500 );
+	};
+
 	return (
 		<div
 			className="gallery-container__header"
@@ -42,7 +63,24 @@ const GalleryHeader = ( {
 			<div className="gallery-container__header--cta">
 				<button
 					type="button"
-					className="button add-gallery-image-btn"
+					className={ classNames( 'button copy-shortcode-btn', {
+						'has-copied': copied,
+					} ) }
+					aria-label={ __(
+						'Copy shortcode to clipboard',
+						'browserstack-gallery'
+					) }
+					title={ __(
+						'Copy shortcode to clipboard',
+						'browserstack-gallery'
+					) }
+					onClick={ onCopyShortcode }
+				>
+					<span className="dashicons dashicons-admin-page"></span>
+				</button>
+				<button
+					type="button"
+					className="button add-image-btn"
 					onClick={ ( e ) => {
 						e.stopPropagation();
 						onAddImage( galleryId );
@@ -52,7 +90,7 @@ const GalleryHeader = ( {
 				</button>
 				<button
 					type="button"
-					className="button button-danger delete-gallery-btn"
+					className="button delete-gallery-btn"
 					onClick={ ( e ) => {
 						e.stopPropagation();
 						onDeleteGallery( galleryId );

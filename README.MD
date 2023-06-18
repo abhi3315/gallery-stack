@@ -71,6 +71,7 @@ The plugin provides a settings panel for managing the shortcode images and galle
 - Delete Gallery: Remove an existing gallery.
 - Add Image: Add a new image to a specific gallery.
 - Delete Image: Remove an image from a gallery.
+- Copy Shortcode: Copy the gallery shortcode.
 
 ### Custom Style: Browserstack Separator
 

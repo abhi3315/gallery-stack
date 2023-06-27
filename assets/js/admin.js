@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { createRoot, useState, useEffect } from '@wordpress/element';
+import { useState, useEffect, render } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -172,4 +172,4 @@ const Root = () => {
 	);
 };
 
-createRoot(document.getElementById('gallery-setting')).render(<Root />);
+render(<Root />, document.getElementById('gallery-setting'));

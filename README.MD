@@ -73,6 +73,8 @@ The plugin provides a settings panel for managing the shortcode images and galle
 - Delete Image: Remove an image from a gallery.
 - Copy Shortcode: Copy the gallery shortcode.
 
+![image](./assets/images/settings-screenshot.JPEG)
+
 ### Custom Style: Gallery Stack Separator
 
 The plugin also registers a custom style called "Gallery Stack Separator" to the core/separator. This allows you to apply a unique separator style in your content.

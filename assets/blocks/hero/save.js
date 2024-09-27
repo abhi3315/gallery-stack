@@ -8,22 +8,22 @@ const save = ({ attributes }) => {
 	return (
 		<div
 			{...useBlockProps.save({
-				className: `browserstack-hero`,
+				className: `gallery-stack-hero`,
 				'data-slide-duration': slideDuration,
 			})}
 		>
-			<div className="browserstack-hero__slides">
+			<div className="gallery-stack-hero__slides">
 				{backgroundImages.map((image) => (
-					<div className="browserstack-hero__slide" key={image.id}>
+					<div className="gallery-stack-hero__slide" key={image.id}>
 						<img
-							className="browserstack-hero__slide-image"
+							className="gallery-stack-hero__slide-image"
 							src={image.url}
 							alt={image.alt}
 						/>
 					</div>
 				))}
 			</div>
-			<div className="browserstack-hero__slide-content">
+			<div className="gallery-stack-hero__slide-content">
 				<InnerBlocks.Content />
 			</div>
 		</div>

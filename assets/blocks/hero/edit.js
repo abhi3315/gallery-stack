@@ -62,12 +62,12 @@ const Edit = ({ attributes, setAttributes }) => {
 		<>
 			<InspectorControls>
 				<PanelBody
-					title={__('Hero Section Settings', 'browserstack-gallery')}
+					title={__('Hero Section Settings', 'gallery-stack')}
 				>
 					<RangeControl
 						label={__(
 							'Slide Duration (in seconds)',
-							'browserstack-gallery'
+							'gallery-stack'
 						)}
 						value={slideDuration}
 						onChange={onChangeSlideDuration}
@@ -83,10 +83,10 @@ const Edit = ({ attributes, setAttributes }) => {
 						render={({ open }) => (
 							<>
 								{!!backgroundImages.length && (
-									<div className="browserstack-hero-controls">
+									<div className="gallery-stack-hero-controls">
 										{backgroundImages.map((image) => (
 											<div
-												className="browserstack-hero-controls__image"
+												className="gallery-stack-hero-controls__image"
 												key={image.id}
 											>
 												<img
@@ -94,7 +94,7 @@ const Edit = ({ attributes, setAttributes }) => {
 													alt={image.alt}
 												/>
 												<button
-													className="browserstack-hero-controls__remove-btn"
+													className="gallery-stack-hero-controls__remove-btn"
 													onClick={() =>
 														onRemoveImage(image.id)
 													}
@@ -109,7 +109,7 @@ const Edit = ({ attributes, setAttributes }) => {
 									<Button variant="secondary" onClick={open}>
 										{__(
 											'Add Background Images',
-											'browserstack-gallery'
+											'gallery-stack'
 										)}
 									</Button>
 								</ButtonGroup>
@@ -120,7 +120,7 @@ const Edit = ({ attributes, setAttributes }) => {
 			</InspectorControls>
 			<div
 				{...useBlockProps({
-					className: 'browserstack-hero',
+					className: 'gallery-stack-hero',
 					style: bgImageStyles,
 					'data-slide-duration': slideDuration,
 				})}
@@ -133,7 +133,7 @@ const Edit = ({ attributes, setAttributes }) => {
 							{
 								placeholder: __(
 									'Hero Heading',
-									'browserstack-gallery'
+									'gallery-stack'
 								),
 							},
 						],
@@ -142,7 +142,7 @@ const Edit = ({ attributes, setAttributes }) => {
 							{
 								placeholder: __(
 									'Hero Text',
-									'browserstack-gallery'
+									'gallery-stack'
 								),
 							},
 						],

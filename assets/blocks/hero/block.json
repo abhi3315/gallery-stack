@@ -1,7 +1,7 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "browserstack-gallery/hero-section",
+	"name": "gallery-stack/hero-section",
 	"title": "Hero Section",
 	"description": "A custom Gutenberg block for the hero section.",
 	"category": "common",
@@ -36,9 +36,9 @@
 			"slideDuration": 5
 		}
 	},
-	"textdomain": "browserstack-gallery",
-	"viewScript": ["file:./view.js", "browserstack-gallery/hero-view-script"],
+	"textdomain": "gallery-stack",
+	"viewScript": ["file:./view.js", "gallery-stack/hero-view-script"],
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
-	"style": ["file:./style-index.css", "browserstack-gallery/hero-style"]
+	"style": ["file:./style-index.css", "gallery-stack/hero-style"]
 }

@@ -2,10 +2,10 @@
 /**
  * File to register custom setting page.
  *
- * @package Browserstack_Gallery
+ * @package Gallery_Stack
  */
 
-namespace Browserstack_Gallery;
+namespace Gallery_Stack;
 
 use Exception;
 
@@ -19,7 +19,7 @@ class Settings {
 	 *
 	 * @var string
 	 */
-	public static $menu_slug = 'browserstack-gallery';
+	public static $menu_slug = 'gallery-stack';
 
 	/**
 	 * Get instance.
@@ -49,8 +49,8 @@ class Settings {
 	 */
 	public function register_settings_page() {
 		add_menu_page(
-			__( 'Browserstack Settings', 'browserstack-gallery' ),
-			__( 'Browserstack', 'browserstack-gallery' ),
+			__( 'Gallery Stack Settings', 'gallery-stack' ),
+			__( 'Gallery Stack', 'gallery-stack' ),
 			'manage_options',
 			self::$menu_slug,
 			[ $this, 'render_settings_page' ],
@@ -66,7 +66,7 @@ class Settings {
 		wp_enqueue_media();
 		?>
 		<div class="wrap gallery-settings">
-			<h1><?php esc_html_e( 'Browserstack Settings', 'browserstack-gallery' ); ?></h1>
+			<h1><?php esc_html_e( 'Gallery Stack Settings', 'gallery-stack' ); ?></h1>
 			<form action="options.php" method="post">
 				<?php
 				settings_fields( self::$menu_slug );
@@ -91,7 +91,7 @@ class Settings {
 
 		add_settings_section(
 			self::$menu_slug . '-section',
-			__( 'Gallery Settings', 'browserstack-gallery' ),
+			__( 'Gallery Settings', 'gallery-stack' ),
 			[ $this, 'render_settings_section' ],
 			self::$menu_slug
 		);

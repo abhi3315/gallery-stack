@@ -2,12 +2,12 @@
 /**
  * File to enqueue assets.
  *
- * @package Browserstack_Gallery
+ * @package Gallery_Stack
  */
 
-namespace Browserstack_Gallery;
+namespace Gallery_Stack;
 
-use Browserstack_Gallery\Settings;
+use Gallery_Stack\Settings;
 
 /**
  * Assets class.
@@ -43,19 +43,19 @@ class Assets {
 	public function enqueue_frontend_assets() {
 		// Enqueue frontend styles.
 		wp_enqueue_style(
-			'browserstack-gallery-frontend',
-			BROWSERSTACK_GALLERY_URL . 'build/assets/main.css',
+			'gallery-stack-frontend',
+			GALLERY_STACK_URL . 'build/assets/main.css',
 			[],
-			BROWSERSTACK_GALLERY_METADATA['Version']
+			GALLERY_STACK_METADATA['Version']
 		);
 
 		// Enqueue frontend scripts.
-		$frontend_dependencies = include BROWSERSTACK_GALLERY_PATH . 'build/assets/main.asset.php';
+		$frontend_dependencies = include GALLERY_STACK_PATH . 'build/assets/main.asset.php';
 		wp_enqueue_script(
-			'browserstack-gallery-frontend',
-			BROWSERSTACK_GALLERY_URL . 'build/assets/main.js',
+			'gallery-stack-frontend',
+			GALLERY_STACK_URL . 'build/assets/main.js',
 			$frontend_dependencies['dependencies'],
-			BROWSERSTACK_GALLERY_METADATA['Version'],
+			GALLERY_STACK_METADATA['Version'],
 			true
 		);
 	}
@@ -72,19 +72,19 @@ class Assets {
 
 		// Enqueue admin styles.
 		wp_enqueue_style(
-			'browserstack-gallery-admin',
-			BROWSERSTACK_GALLERY_URL . 'build/assets/admin.css',
+			'gallery-stack-admin',
+			GALLERY_STACK_URL . 'build/assets/admin.css',
 			[],
-			BROWSERSTACK_GALLERY_METADATA['Version']
+			GALLERY_STACK_METADATA['Version']
 		);
 
 		// Enqueue admin scripts.
-		$admin_dependencies = include BROWSERSTACK_GALLERY_PATH . 'build/assets/admin.asset.php';
+		$admin_dependencies = include GALLERY_STACK_PATH . 'build/assets/admin.asset.php';
 		wp_enqueue_script(
-			'browserstack-gallery-admin',
-			BROWSERSTACK_GALLERY_URL . 'build/assets/admin.js',
+			'gallery-stack-admin',
+			GALLERY_STACK_URL . 'build/assets/admin.js',
 			$admin_dependencies['dependencies'],
-			BROWSERSTACK_GALLERY_METADATA['Version'],
+			GALLERY_STACK_METADATA['Version'],
 			true
 		);
 	}

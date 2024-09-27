@@ -33,7 +33,7 @@ const GalleryHeader = ({
 	 */
 	const onCopyShortcode = (e) => {
 		e.stopPropagation();
-		const shortcode = `[browserstack_gallery gallery_id="${galleryId}"]`;
+		const shortcode = `[gallery_stack gallery_id="${galleryId}"]`;
 		navigator?.clipboard?.writeText(shortcode).then(() => {
 			setCopied(true);
 
@@ -49,7 +49,7 @@ const GalleryHeader = ({
 			onClick={toggleExpanded}
 			role="button"
 			tabIndex="0"
-			aria-label={__('Click to expand gallery', 'browserstack-gallery')}
+			aria-label={__('Click to expand gallery', 'gallery-stack')}
 			onKeyDown={(e) => {
 				if (e.key === 'Enter') {
 					toggleExpanded();
@@ -65,11 +65,11 @@ const GalleryHeader = ({
 					})}
 					aria-label={__(
 						'Copy shortcode to clipboard',
-						'browserstack-gallery'
+						'gallery-stack'
 					)}
 					title={__(
 						'Copy shortcode to clipboard',
-						'browserstack-gallery'
+						'gallery-stack'
 					)}
 					onClick={onCopyShortcode}
 				>
@@ -83,7 +83,7 @@ const GalleryHeader = ({
 						onAddImage(galleryId);
 					}}
 				>
-					{__('Add Image', 'browserstack-gallery')}
+					{__('Add Image', 'gallery-stack')}
 				</button>
 				<button
 					type="button"
@@ -93,7 +93,7 @@ const GalleryHeader = ({
 						onDeleteGallery(galleryId);
 					}}
 				>
-					{__('Delete Gallery', 'browserstack-gallery')}
+					{__('Delete Gallery', 'gallery-stack')}
 				</button>
 			</div>
 		</div>

@@ -153,10 +153,10 @@ const Root = () => {
 				className="button add-gallery-btn"
 				onClick={onAddGallery}
 			>
-				{__('Add Gallery', 'browserstack-gallery')}
+				{__('Add Gallery', 'gallery-stack')}
 			</button>
 			{!Object.keys(setting).length && (
-				<h2>{__('No gallery added yet.', 'browserstack-gallery')}</h2>
+				<h2>{__('No gallery added yet.', 'gallery-stack')}</h2>
 			)}
 			{Object.keys(setting).map((key) => (
 				<GalleryContainer

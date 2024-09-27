@@ -1,7 +1,7 @@
 {
-	"name": "browserstack-gallery",
+	"name": "gallery-stack",
 	"version": "1.0.0",
-	"description": "A assignment plugin for Browserstack.",
+	"description": "A simple WordPress plugin to display and manage images in a gallery stack.",
 	"author": {
 		"name": "Abhishek Kumar",
 		"url": "https://github.com/abhi3315/"
@@ -10,13 +10,13 @@
 	"keywords": [
 		"wordpress-plugin"
 	],
-	"homepage": "https://github.com/abhi3315/browserstack-gallery#readme",
+	"homepage": "https://github.com/abhi3315/gallery-stack#readme",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/abhi3315/browserstack-gallery.git"
+		"url": "git+https://github.com/abhi3315/gallery-stack.git"
 	},
 	"bugs": {
-		"url": "https://github.com/abhi3315/browserstack-gallery/issues"
+		"url": "https://github.com/abhi3315/gallery-stack/issues"
 	},
 	"dependencies": {
 		"@wordpress/block-editor": "^12.3.0",

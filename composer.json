@@ -1,6 +1,6 @@
 {
-	"name": "abhi3315/browserstack-gallery",
-	"description": "A assignment plugin for Browserstack.",
+	"name": "abhi3315/gallery-stack",
+	"description": "A simple WordPress plugin to display and manage images in a gallery stack.",
 	"type": "wordpress-plugin",
 	"require": {
 		"php": ">=7.0"
@@ -14,7 +14,7 @@
 	"license": "GPL v2 or later",
 	"autoload": {
 		"psr-4": {
-			"Browserstack_Gallery\\": "src/"
+			"Gallery_Stack\\": "src/"
 		}
 	},
 	"authors": [

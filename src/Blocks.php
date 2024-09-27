@@ -2,10 +2,10 @@
 /**
  * Register blocks.
  *
- * @package Browserstack_Gallery
+ * @package Gallery_Stack
  */
 
-namespace Browserstack_Gallery;
+namespace Gallery_Stack;
 
 /**
  * Blocks class.
@@ -40,7 +40,7 @@ class Blocks {
 	 */
 	public function register_blocks() {
 		register_block_type(
-			BROWSERSTACK_GALLERY_PATH . '/build/blocks/hero/'
+			GALLERY_STACK_PATH . '/build/blocks/hero/'
 		);
 	}
 
@@ -51,9 +51,9 @@ class Blocks {
 		register_block_style(
 			'core/separator',
 			[
-				'name'         => 'browserstack-separator',
-				'label'        => __( 'Browserstack Separator', 'browserstack-gallery' ),
-				'style_handle' => 'browserstack-separator',
+				'name'         => 'gallery-stack-separator',
+				'label'        => __( 'Gallery Stack Separator', 'gallery-stack' ),
+				'style_handle' => 'gallery-stack-separator',
 			]
 		);
 	}

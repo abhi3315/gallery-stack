@@ -2,15 +2,15 @@
 /**
  * Main plugin file.
  *
- * @package Browserstack_Gallery
+ * @package Gallery_Stack
  */
 
-namespace Browserstack_Gallery;
+namespace Gallery_Stack;
 
-use Browserstack_Gallery\Blocks;
-use Browserstack_Gallery\Assets;
-use Browserstack_Gallery\Settings;
-use Browserstack_Gallery\Shortcodes;
+use Gallery_Stack\Blocks;
+use Gallery_Stack\Assets;
+use Gallery_Stack\Settings;
+use Gallery_Stack\Shortcodes;
 
 /**
  * Main plugin class.

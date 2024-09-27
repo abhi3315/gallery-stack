@@ -1,12 +1,12 @@
 import domReady from '@wordpress/dom-ready';
 
 domReady(() => {
-	const heroBlock = document.querySelector('.browserstack-hero');
+	const heroBlock = document.querySelector('.gallery-stack-hero');
 	const slideDuration = parseInt(heroBlock.dataset.slideDuration || 5);
 	const slideContainer = heroBlock.querySelector(
-		'.browserstack-hero__slides'
+		'.gallery-stack-hero__slides'
 	);
-	const slides = heroBlock.querySelectorAll('.browserstack-hero__slide');
+	const slides = heroBlock.querySelectorAll('.gallery-stack-hero__slide');
 	const slideWidth = slides[0].offsetWidth;
 
 	let currentSlide = 0;

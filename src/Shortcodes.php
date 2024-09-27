@@ -2,12 +2,12 @@
 /**
  * File to register shortcodes.
  *
- * @package Browserstack_Gallery
+ * @package Gallery_Stack
  */
 
-namespace Browserstack_Gallery;
+namespace Gallery_Stack;
 
-use Browserstack_Gallery\Settings;
+use Gallery_Stack\Settings;
 
 /**
  * Shortcodes class.
@@ -33,7 +33,7 @@ class Shortcodes {
 	 * Initialize the class.
 	 */
 	public function init() {
-		add_shortcode( 'browserstack_gallery', [ $this, 'render_gallery' ] );
+		add_shortcode( 'gallery_stack', [ $this, 'render_gallery' ] );
 	}
 
 	/**
@@ -67,14 +67,14 @@ class Shortcodes {
 
 		foreach ( $images as $image ) {
 			$images_html .= sprintf(
-				'<div class="browserstack-gallery__image alignfull"><img src="%s" alt="%s" /></div>',
+				'<div class="gallery-stack-gallery__image alignfull"><img src="%s" alt="%s" /></div>',
 				$image['url'],
 				$image['alt'] ?? ''
 			);
 		}
 
 		return sprintf(
-			'<div class="browserstack-gallery alignwide">%s</div>',
+			'<div class="gallery-stack alignwide">%s</div>',
 			$images_html
 		);
 	}

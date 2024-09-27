@@ -27,12 +27,13 @@ const generateGalleryId = () => {
  *
  * @param {Array}    selectedImages - Array of selected image IDs.
  * @param {Function} callback       - Callback function to return selected images.
+ * @param {string}   buttonText     - Button text for media frame.
  */
-const openMediaFrame = (selectedImages = [], callback) => {
+const openMediaFrame = (selectedImages = [], callback, buttonText = __( 'Create Gallery', 'gallery-stack' ) ) => {
 	const mediaFrame = wp.media({
 		title: 'Select images for your gallery',
 		button: {
-			text: 'Create gallery',
+			text: buttonText,
 		},
 		multiple: true,
 	});
@@ -92,13 +93,15 @@ const Root = () => {
 	const onAddImage = (galleryId) => {
 		const selectedImages = setting[galleryId].map((image) => image.id);
 
+		console.log(selectedImages);
+
 		openMediaFrame(selectedImages, (images) => {
 			setSetting((prev) => {
 				const newSetting = { ...prev };
 				newSetting[galleryId] = images;
 				return newSetting;
 			});
-		});
+		}, __( 'Update Gallery', 'gallery-stack' ));
 	};
 
 	/**
